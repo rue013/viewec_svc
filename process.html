@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服務流程 | ViewEC Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:     #111111;
+      --ink2:    #3D3D3D;
+      --accent:  #F04A1F;
+      --navy:    #1e3a5f;
+      --navy-dk: #0f172a;
+      --sky:     #C2D9ED;
+      --sky-lt:  #EAF3FA;
+      --sand:    #EDEAE4;
+      --white:   #ffffff;
+      --t2:      #5a5a5a;
+      --t3:      #999;
+      --border:  #E0DDD8;
+      --rule:    rgba(17,17,17,0.07);
+      --w:       1200px;
+      --font:    'Noto Sans TC', -apple-system, sans-serif;
+      --ease:    cubic-bezier(0.22,1,0.36,1);
+      --r:       12px;
+      --hh:      68px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased; }
+    .wrap { max-width:var(--w); margin:0 auto; padding:0 40px; }
+
+    /* ── Nav ── */
+    .header { position:sticky; top:0; z-index:100; height:var(--hh); background:rgba(255,255,255,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+    .nav-inner { height:100%; display:flex; align-items:center; }
+    .nav-logo { font-size:20px; font-weight:700; color:var(--navy); text-decoration:none; letter-spacing:-0.03em; margin-right:auto; }
+    .nav-links { display:flex; align-items:center; gap:2px; margin-right:20px; }
+    .nav-link { display:inline-flex; align-items:center; gap:4px; font-size:14px; font-weight:500; color:var(--ink2); text-decoration:none; padding:6px 14px; border-radius:6px; transition:all .18s; }
+    .nav-link:hover { color:var(--navy); background:var(--sky-lt); }
+    .nav-link.active { color:var(--navy); background:var(--sky-lt); font-weight:600; }
+    .nav-item { position:relative; }
+    .nav-dropdown-btn {
+      display:inline-flex; align-items:center; gap:3px;
+      font-size:14px; font-weight:500; color:var(--ink2);
+      padding:6px 14px; border-radius:6px; transition:all .18s; cursor:default; user-select:none;
+    }
+    .nav-item:hover .nav-dropdown-btn { color:var(--navy); background:var(--sky-lt); }
+    .nav-item:has(.nav-dropdown-menu a.active) .nav-dropdown-btn { color:var(--navy); background:var(--sky-lt); font-weight:600; }
+    .nav-dropdown-menu {
+      display:none; position:absolute; top:100%; left:0;
+      background:var(--white); border:1px solid var(--border);
+      border-radius:8px; min-width:144px; padding:8px 0 4px;
+      z-index:200; box-shadow:0 6px 20px rgba(0,0,0,.08);
+    }
+    .nav-item:hover .nav-dropdown-menu { display:block; }
+    .nav-dropdown-menu a { display:block; padding:9px 16px; font-size:14px; font-weight:500; color:var(--ink2); text-decoration:none; transition:background .15s; }
+    .nav-dropdown-menu a:hover { background:var(--sky-lt); color:var(--navy); }
+    .nav-dropdown-menu a.active { color:var(--navy); font-weight:600; }
+    .nav-cta { display:inline-flex; align-items:center; padding:9px 20px; background:var(--navy); color:var(--white); border-radius:6px; font-size:14px; font-weight:600; text-decoration:none; transition:background .2s; }
+    .nav-cta:hover { background:var(--navy-dk); }
+
+    /* ── Hero ── */
+    .hero { padding:136px 0 96px; background:var(--sand); }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:500; letter-spacing:.04em; color:var(--accent); margin-bottom:22px; }
+    .hero-eyebrow::before { content:''; width:24px; height:1.5px; background:var(--accent); display:block; }
+    .hero-title { font-size:clamp(34px,4.5vw,56px); font-weight:700; line-height:1.12; letter-spacing:-0.035em; color:var(--ink); margin-bottom:20px; }
+    .hero-sub { font-size:16px; color:rgba(17,17,17,.68); line-height:1.8; max-width:640px; margin-bottom:36px; }
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-ghost-white { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:6px; font-size:13px; font-weight:600; text-decoration:none; border:none; background:var(--white); color:var(--ink); box-shadow:0 1px 4px rgba(0,0,0,.08); transition:all .2s; }
+    .btn-ghost-white:hover { background:var(--border); }
+
+    /* ── Flow section ── */
+    .flow-section { padding:104px 0; }
+    .flow-section--alt { background:var(--sand); }
+
+    .flow-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* Left column: big label + title + image */
+    .flow-left {}
+    .flow-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 14px; font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .flow-label::before { content:''; width:28px; height:2px; background:var(--accent); display:block; flex-shrink:0; }
+    .flow-heading {
+      font-size: 32px;
+      font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.03em;
+      margin-bottom: 36px;
+    }
+    .flow-visual {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--r);
+      background: linear-gradient(160deg, var(--sky) 0%, #a8c8e0 100%);
+      overflow: hidden;
+    }
+    .flow-visual img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Right column: steps (no outer border) */
+    .stage-list { /* no border */ }
+    .stage {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stage:first-child { padding-top: 0; }
+    .stage:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .stage-num {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: white;
+      margin-top: 1px;
+    }
+    .stage-name {
+      font-size: 15px; font-weight: 600;
+      color: var(--ink); letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .stage-desc { font-size: 14px; color: var(--t2); line-height: 1.8; }
+
+    /* ── FAQ — 2 columns ── */
+    .faq { padding:96px 0; border-top:1px solid var(--border); }
+    .faq-heading-row { margin-bottom:52px; }
+    .faq-heading-row .section-tag { display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:var(--accent); margin-bottom:10px; }
+    .faq-heading-row .section-tag::before { content:''; width:24px; height:1.5px; background:var(--accent); display:block; }
+    .faq-heading-row h2 { font-size:32px; font-weight:700; letter-spacing:-0.025em; }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .faq-group-label {
+      font-size: 14px; font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .faq-group-label::before { content:''; width:24px; height:2px; background:var(--accent); display:block; }
+    .faq-list { display:flex; flex-direction:column; }
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-item:first-child { border-top:1px solid var(--border); }
+    details.faq-item > summary { display:flex; align-items:center; justify-content:space-between; padding:17px 0; cursor:pointer; list-style:none; gap:16px; }
+    details.faq-item > summary::-webkit-details-marker { display:none; }
+    .faq-q { font-size:14px; font-weight:500; color:var(--ink); line-height:1.4; }
+    .faq-toggle { width:22px; height:22px; flex-shrink:0; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--t3); transition:all .2s; }
+    details[open] .faq-toggle { background:var(--ink); border-color:var(--ink); color:white; }
+    .faq-a { padding:0 0 17px; font-size:13px; color:var(--t2); line-height:1.85; padding-left:14px; border-left:2px solid var(--accent); }
+
+    /* ── Showcase carousel ── */
+    .showcase { padding:96px 0; }
+    .showcase-header { margin-bottom:44px; }
+    .section-tag { display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:var(--accent); margin-bottom:10px; }
+    .section-tag::before { content:''; width:24px; height:1.5px; background:var(--accent); display:block; }
+    .section-heading { font-size:32px; font-weight:700; letter-spacing:-0.025em; }
+
+    /* Buttons flank the carousel: use side padding on track wrapper */
+    .carousel-outer {
+      display: grid;
+      grid-template-columns: 64px 1fr 64px;
+      align-items: center;
+      gap: 0;
+    }
+    .carousel-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px; color: var(--ink);
+      transition: all .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      justify-self: center;
+    }
+    .carousel-btn:hover { border-color:var(--ink); background:var(--ink); color:white; }
+
+    .carousel { overflow:hidden; }
+    .carousel-track { display:flex; transition:transform .45s var(--ease); }
+    .carousel-slide { min-width:100%; border-radius:var(--r); overflow:hidden; }
+    .slide-pair { display:grid; grid-template-columns:1fr 1fr; }
+    .slide-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(160deg,var(--sky) 0%,#a8c8e0 100%);
+      position: relative; overflow: hidden;
+    }
+    .slide-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .slide-img--after { background:linear-gradient(160deg,#2d4a6f 0%,#1e3a5f 100%); }
+    .slide-img-label { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,.14); backdrop-filter:blur(4px); color:rgba(255,255,255,.85); font-size:10px; font-weight:500; letter-spacing:.07em; text-transform:uppercase; padding:4px 10px; border-radius:12px; white-space:nowrap; }
+    .slide-meta { background:var(--white); padding:16px 24px 20px; }
+    .slide-category { font-size:10px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
+    .slide-title { font-size:14px; font-weight:500; color:var(--ink); }
+
+    .carousel-dots { display:flex; gap:6px; justify-content:center; margin-top:18px; }
+    .carousel-dot { width:6px; height:6px; border-radius:50%; background:var(--border); cursor:pointer; transition:background .2s; }
+    .carousel-dot.active { background:var(--accent); }
+
+    /* ── Purchase CTA ── */
+    .purchase-cta { padding:88px 0; background:var(--white); }
+    .purchase-box { max-width:960px; margin:0 auto; background:var(--sand); border:1.5px solid var(--border); border-radius:16px; padding:56px 48px; text-align:center; }
+    .purchase-heading { font-size:32px; font-weight:700; letter-spacing:-0.025em; margin:10px 0 36px; }
+    .btn-group { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .btn-outline { display:inline-block; border:1.5px solid var(--border); color:var(--t2); padding:11px 24px; border-radius:6px; font-size:14px; font-weight:500; text-decoration:none; transition:all .2s; }
+    .btn-outline:hover { border-color:var(--ink); color:var(--ink); }
+    .btn-white { display:inline-block; background:var(--white); color:var(--ink); padding:12px 24px; border-radius:6px; font-size:14px; font-weight:600; text-decoration:none; transition:all .2s; border:none; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+    .btn-white:hover { background:var(--sand); }
+    .btn-orange { display:inline-block; background:var(--accent); color:white; padding:12px 24px; border-radius:6px; font-size:14px; font-weight:500; text-decoration:none; transition:opacity .2s; }
+    .btn-orange:hover { opacity:.88; }
+
+    /* ── CTA Band ── */
+    .cta-band { background:linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%); padding:80px 0; text-align:center; }
+    .cta-band-inner { max-width:560px; margin:0 auto; }
+    .cta-eyebrow { font-size:14px; font-weight:500; color:var(--accent); margin-bottom:12px; }
+    .cta-title { font-size:clamp(24px,3vw,32px); font-weight:700; letter-spacing:-0.025em; color:white; margin-bottom:14px; }
+    .cta-desc { font-size:16px; color:rgba(255,255,255,.62); line-height:1.75; margin-bottom:32px; }
+    .btn-amber { display:inline-block; background:var(--accent); color:white; padding:13px 32px; border-radius:6px; font-size:14px; font-weight:600; text-decoration:none; transition:opacity .2s; }
+    .btn-amber:hover { opacity:.88; }
+
+    /* ── Footer ── */
+    .footer { background:#0f172a; padding:60px 0 32px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:48px; margin-bottom:48px; }
+    .footer-logo { font-size:18px; font-weight:700; color:#fff; letter-spacing:-.02em; display:block; margin-bottom:12px; }
+    .footer-brand p { font-size:14px; color:rgba(255,255,255,.48); line-height:1.75; max-width:280px; }
+    .footer-heading { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:14px; }
+    .footer-links { display:flex; flex-direction:column; gap:9px; }
+    .footer-link { font-size:14px; color:rgba(255,255,255,.58); text-decoration:none; transition:color .18s; }
+    .footer-link:hover { color:#fff; }
+    .footer-contact { font-size:14px; color:rgba(255,255,255,.52); margin-bottom:9px; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:24px; display:flex; align-items:center; justify-content:space-between; }
+    .footer-copy { font-size:12px; color:rgba(255,255,255,.28); }
+
+    /* ── Reveal ── */
+    .reveal { opacity:0; transform:translateY(18px); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+    .reveal.in { opacity:1; transform:none; }
+
+    /* ── Responsive ── */
+    @media (max-width:1024px) {
+      .flow-inner { grid-template-columns:1fr; gap:40px; }
+      .faq-grid { grid-template-columns:1fr; gap:48px; }
+      .carousel-outer { grid-template-columns:48px 1fr 48px; }
+      .cta-band-inner { grid-template-columns:1fr; gap:32px; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:768px) {
+      .nav-links { display:none; }
+      .footer-grid { grid-template-columns:1fr; }
+      .btn-group { flex-direction:column; align-items:center; }
+      .carousel-outer { grid-template-columns:40px 1fr 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo"><img src="icon.webp" alt="ViewEC" style="height:32px;width:auto;"></a>
+    <nav class="nav-links">
+      <div class="nav-item">
+        <span class="nav-dropdown-btn">圖片模板 ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="listing-layout.html">刊登圖</a>
+          <a href="description-layout.html">說明圖</a>
+          <a href="combo.html">組合優惠</a>
+        </div>
+      </div>
+      <a href="#" class="nav-link">客服外包</a>
+      <a href="process.html" class="nav-link active">服務流程</a>
+      <a href="https://viewec.tw" target="_blank" rel="noopener" class="nav-link">關於視宇<svg width="16" height="16" viewBox="0 0 12 12" fill="none" style="opacity:.5;flex-shrink:0"><path d="M10 2H6m4 0L4.5 7.5M10 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 3H3a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+    </nav>
+    <a href="/pages/contact" class="nav-cta">免費諮詢</a>
+  </div>
+</header>
+
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">用可視化的流程，建構最值得信賴的服務體驗</div>
+    <h1 class="hero-title">服務流程說明</h1>
+    <p class="hero-sub">無論是產品圖片設計還是客服外包，每一個環節都由專業的團隊服務，讓合作的每一步都建立在清楚的預期上</p>
+    <div class="hero-btns">
+      <a href="#design-flow" class="btn-ghost-white">設計流程 ↓</a>
+      <a href="#bpo-flow" class="btn-ghost-white">客服流程 ↓</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Design Flow -->
+<section class="flow-section" id="design-flow">
+  <div class="wrap">
+    <div class="flow-inner">
+
+      <!-- Left: label + title + image -->
+      <div class="reveal">
+        <div class="flow-label">五步驟，3–5 天交付</div>
+        <div class="flow-heading">設計流程</div>
+        <p style="font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:36px;">由資深設計師全程執行，您提供產品照片與文案，我們負責剩下的一切。</p>
+        <div class="flow-visual">
+          <img src="images/service-visual.jpg" alt="設計流程" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- Right: steps -->
+      <div class="reveal">
+        <div class="stage-list">
+          <div class="stage">
+            <div class="stage-num">01</div>
+            <div>
+              <div class="stage-name">挑選模板</div>
+              <p class="stage-desc">瀏覽刊登圖與說明圖的模板庫，依產品類別與風格偏好篩選。不確定選哪款？聯繫我們免費諮詢選購建議。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">02</div>
+            <div>
+              <div class="stage-name">下單並上傳素材</div>
+              <p class="stage-desc">結帳時提供產品清晰照片及核心文案，並可備註基礎客製需求（背景顏色、字體顏色等）。如有品牌 Logo 或色彩規範，請一併提供，建議解析度 1000px 以上。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">03</div>
+            <div>
+              <div class="stage-name">客製化設計</div>
+              <p class="stage-desc">資深設計師將您的產品素材套用進所選模板，進行排版、文字調整與視覺優化。急件可加價處理，最快 1–2 天，請於下單時備註。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">04</div>
+            <div>
+              <div class="stage-name">確認設計初稿</div>
+              <p class="stage-desc">收到初稿後，您可對排版與文字細節提出意見。每份設計包含一次免費修改，確保成品完全符合品牌調性，額外修改依範圍報價。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">05</div>
+            <div>
+              <div class="stage-name">交付成品</div>
+              <p class="stage-desc">確認完成後交付高解析度原始檔，享有完整商業使用授權，可用於 Amazon、eBay、樂天、Shopify 等各大平台，無使用期限限制。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- BPO Flow -->
+<section class="flow-section flow-section--alt" id="bpo-flow">
+  <div class="wrap">
+    <!-- Reversed: steps left, image right -->
+    <div class="flow-inner" style="direction:rtl;">
+
+      <!-- Image (visually right) -->
+      <div class="reveal" style="direction:ltr;">
+        <div class="flow-label">四步驟，最快兩週上線</div>
+        <div class="flow-heading">客服流程</div>
+        <p style="font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:36px;">由專業客服團隊全程配置，您說明業務需求，我們負責剩下的系統串接與人員安排。</p>
+        <div class="flow-visual">
+          <img src="images/service-bpo.jpg" alt="客服流程" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- Steps (visually left) -->
+      <div class="reveal" style="direction:ltr;">
+        <div class="stage-list">
+          <div class="stage">
+            <div class="stage-num">01</div>
+            <div>
+              <div class="stage-name">需求訪談</div>
+              <p class="stage-desc">與業務顧問初步溝通，說明業務類型、目標市場、語言需求與預估客服量。免費諮詢，無需準備複雜資料。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">02</div>
+            <div>
+              <div class="stage-name">方案配置</div>
+              <p class="stage-desc">推薦最適合的服務組合：AI 智慧客服、真人客服或混合模式。說明各方案的適用情境、覆蓋語言與報價範圍，由您決定最終配置。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">03</div>
+            <div>
+              <div class="stage-name">系統串接</div>
+              <p class="stage-desc">對接電商平台、工單系統與通訊軟體，確保進線無縫流轉。支援 Amazon Seller Central、Shopify、Zendesk 等主流系統，以及 16+ 通訊軟體。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">04</div>
+            <div>
+              <div class="stage-name">上線運作</div>
+              <p class="stage-desc">客服團隊正式上線，7×24 全時段覆蓋亞洲、歐洲、北美主要時區。初期密切監控進線品質，提供詳細運行報告。</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="stage-num">05</div>
+            <div>
+              <div class="stage-name">持續優化</div>
+              <p class="stage-desc">定期提供數據報表，包含回覆率、處理時間、客戶滿意度等指標。每月回顧，根據業務變化持續調整客服話術與配置比例。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq-heading-row reveal">
+      <div class="section-tag">您可能想知道的事</div>
+      <h2>常見問題</h2>
+    </div>
+    <div class="faq-grid reveal">
+
+      <!-- 設計 FAQ -->
+      <div>
+        <div class="faq-group-label">設計服務</div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary><span class="faq-q">可以提供客製化設計嗎？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">可以。除了套用模板，我們也提供基礎客製服務，包含背景顏色調整、字體顏色更換等。如需完全客製設計，請聯繫我們另行報價。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">素材需要提供什麼格式？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">建議提供高解析度的產品照片（JPG/PNG，至少 1000px 以上），以及您希望呈現的文案內容。如有品牌 Logo 或色彩規範，也請一併提供。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">可以修改幾次？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">每份設計包含一次免費修改。如需額外修改，將依修改範圍另行報價。建議在提供素材時一併說明品牌偏好，可有效減少往返次數。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">急件怎麼處理？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">標準交付時間為 3–5 個工作天。急件可加價處理，最快 1–2 天交付，請於下單時備註，是否可接受急件視當時排程而定。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">模板可以用在 Amazon 以外的平台嗎？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">可以。成品享有完整商業使用授權，可用於 Amazon、eBay、樂天、Shopify 等各大平台。</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- 客服 FAQ -->
+      <div>
+        <div class="faq-group-label">客服服務</div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary><span class="faq-q">BPO 服務有最低客服量要求嗎？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">沒有硬性門檻。我們依不同業務規模彈性報價，無論是剛起步的小品牌或已有穩定銷量的賣家都能配合。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">AI 客服能處理哪些類型的問題？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">AI 客服適合處理常見問題回覆、訂單狀態查詢、退換貨流程說明等標準化情境。複雜案件會自動轉接真人客服處理。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">支援哪些語言和時區？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">我們支援繁體中文、英文、日文客服，覆蓋亞洲、歐洲、北美主要時區，可依目標市場客製化配置。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">如何評估是否需要真人客服？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">如果業務有大量客製化需求、高複雜度退換貨，或需要情感安撫的情境，建議搭配真人客服。我們在需求訪談中會協助判斷最適合的配置。</p>
+          </details>
+          <details class="faq-item">
+            <summary><span class="faq-q">合作開始後可以調整服務規模嗎？</span><span class="faq-toggle">+</span></summary>
+            <p class="faq-a">可以。服務配置可依業務旺淡季或促銷活動期間隨時增減人力與 AI 處理量。每月數據回顧會議也是重新評估配置的好時機。</p>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Showcase -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="showcase-header reveal">
+      <div class="section-tag">看看我們的設計成果</div>
+      <div class="section-heading">成品展示</div>
+    </div>
+
+    <div class="reveal">
+      <div class="carousel-outer">
+        <button class="carousel-btn" id="prevBtn" aria-label="上一張">&#8592;</button>
+
+        <div class="carousel">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <div class="slide-pair">
+                <div class="slide-img"><img src="images/before.jpg" alt="模板" onerror="this.style.display='none'"><span class="slide-img-label">模板</span></div>
+                <div class="slide-img slide-img--after"><img src="images/after.jpg" alt="完稿" onerror="this.style.display='none'"><span class="slide-img-label">完稿</span></div>
+              </div>
+              <div class="slide-meta"><div class="slide-category">3C 電子</div><div class="slide-title">藍牙耳機刊登圖</div></div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-pair">
+                <div class="slide-img"><span class="slide-img-label">模板</span></div>
+                <div class="slide-img slide-img--after"><span class="slide-img-label">完稿</span></div>
+              </div>
+              <div class="slide-meta"><div class="slide-category">家居生活</div><div class="slide-title">空氣清淨機說明圖</div></div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-pair">
+                <div class="slide-img"><span class="slide-img-label">模板</span></div>
+                <div class="slide-img slide-img--after"><span class="slide-img-label">完稿</span></div>
+              </div>
+              <div class="slide-meta"><div class="slide-category">美妝保養</div><div class="slide-title">護膚精華刊登圖</div></div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-pair">
+                <div class="slide-img"><span class="slide-img-label">模板</span></div>
+                <div class="slide-img slide-img--after"><span class="slide-img-label">完稿</span></div>
+              </div>
+              <div class="slide-meta"><div class="slide-category">汽車配件</div><div class="slide-title">車用收納說明圖</div></div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-pair">
+                <div class="slide-img"><span class="slide-img-label">模板</span></div>
+                <div class="slide-img slide-img--after"><span class="slide-img-label">完稿</span></div>
+              </div>
+              <div class="slide-meta"><div class="slide-category">寵物用品</div><div class="slide-title">寵物零食刊登圖</div></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-btn" id="nextBtn" aria-label="下一張">&#8594;</button>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Purchase CTA -->
+<section class="purchase-cta">
+  <div class="wrap">
+    <div class="purchase-box">
+      <div class="section-tag">開始選購</div>
+      <div class="purchase-heading">準備好提升您的產品頁質感了嗎？</div>
+      <div class="btn-group">
+        <a href="/collections/listing" class="btn-white">瀏覽刊登圖模板</a>
+        <a href="/collections/description" class="btn-white">瀏覽說明圖模板</a>
+        <a href="/collections/combo" class="btn-orange">查看組合優惠</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA Band -->
+<section class="cta-band">
+  <div class="wrap">
+    <div class="cta-band-inner">
+      <h2 class="cta-title">方案選擇困難？讓我們來幫您</h2>
+      <p class="cta-desc">如果您不確定哪款模板最適合，或有大量訂製需求，請直接聯繫我們。我們的專業團隊將根據您的產品性質，提供最精確的選購建議</p>
+      <a href="#" class="btn-amber">聯繫我們</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">ViewEC</span>
+        <p>視宇旗下跨境電商視覺與營運服務品牌，Amazon 官方認證 SPN 服務商，協助賣家以專業視覺與高效客服贏得全球市場。</p>
+      </div>
+      <div>
+        <div class="footer-heading">服務項目</div>
+        <div class="footer-links">
+          <a href="listing-layout.html" class="footer-link">刊登圖模板</a>
+          <a href="description-layout.html" class="footer-link">說明圖模板</a>
+          <a href="combo.html" class="footer-link">組合優惠</a>
+          <a href="#" class="footer-link">AI 智慧客服</a>
+          <a href="#" class="footer-link">BPO 外包服務</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">關於我們</div>
+        <div class="footer-links">
+          <a href="process.html" class="footer-link">服務流程</a>
+          <a href="#" class="footer-link">公司介紹</a>
+          <a href="https://viewec.com/" class="footer-link" target="_blank" rel="noopener">視宇集團官網</a>
+          <a href="#" class="footer-link">聯繫我們</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">聯繫方式</div>
+        <div class="footer-contact">service@viewec.com</div>
+        <div class="footer-contact">( 02 ) 2545 - 8780</div>
+        <div class="footer-contact">105403 台北市松山區復興北路 191 號 7 樓之 5</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 ViewEC Marketing. All rights reserved.</span>
+      <span class="footer-copy">Amazon SPN 認證服務商</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Carousel
+  const track = document.getElementById('carouselTrack');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const dotsWrap = document.getElementById('carouselDots');
+  let cur = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function goTo(n) {
+    cur = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+  }
+  document.getElementById('prevBtn').onclick = () => goTo(cur - 1);
+  document.getElementById('nextBtn').onclick = () => goTo(cur + 1);
+
+  // Reveal
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // FAQ icons
+  document.querySelectorAll('details.faq-item').forEach(d => {
+    d.addEventListener('toggle', () => d.querySelector('.faq-toggle').textContent = d.open ? '−' : '+');
+  });
+</script>
+</body>
+</html>
