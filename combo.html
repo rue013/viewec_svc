@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>組合優惠 — ViewEC Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #111111;
+      --ink2:    #3D3D3D;
+      --t2:      #64748b;
+      --navy:    #1e3a5f;
+      --navy-dk: #0f172a;
+      --accent:  #F04A1F;
+      --sky:     #C2D9ED;
+      --sky-lt:  #EAF3FA;
+      --sand:    #EDEAE4;
+      --sand-dk: #E0DDD6;
+      --white:   #ffffff;
+      --border:  #e2e8f0;
+      --r:       12px;
+      --hh:      68px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      height: var(--hh);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { height: 100%; display: flex; align-items: center; }
+    .nav-logo { font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -0.03em; margin-right: auto; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 2px; margin-right: 20px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--ink2); padding: 6px 14px; border-radius: 6px; transition: all .18s; cursor: pointer; }
+    .nav-link:hover { color: var(--navy); background: var(--sky-lt); }
+    .nav-link.active { color: var(--navy); background: var(--sky-lt); font-weight: 600; }
+    .nav-cta { display: inline-flex; align-items: center; padding: 9px 20px; background: var(--navy); color: var(--white); border-radius: 6px; font-size: 14px; font-weight: 600; transition: background .2s; }
+    .nav-cta:hover { background: var(--navy-dk); }
+    /* Dropdown */
+    .nav-item { position: relative; }
+    .nav-dropdown-btn { display: inline-flex; align-items: center; gap: 3px; font-size: 14px; font-weight: 500; color: var(--ink2); padding: 6px 14px; border-radius: 6px; transition: all .18s; cursor: default; user-select: none; }
+    .nav-item:hover .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); }
+    .nav-item:has(.nav-dropdown-menu a.active) .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); font-weight: 600; }
+    .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; background: var(--white); border: 1px solid var(--border); border-radius: 8px; min-width: 144px; padding: 4px 0; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+    .nav-item:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu a { display: block; padding: 9px 16px; font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; transition: background .15s; }
+    .nav-dropdown-menu a:hover { background: var(--sky-lt); color: var(--navy); }
+    .nav-dropdown-menu a.active { color: var(--navy); font-weight: 600; }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%);
+      padding: 80px 0 72px; position: relative; overflow: hidden;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(194,217,237,.13) 0%, transparent 62%);
+      pointer-events: none;
+    }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,.5); margin-bottom: 18px; display: flex; align-items: center; gap: 6px; }
+    .breadcrumb a { color: rgba(255,255,255,.5); transition: color .18s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,.85); }
+    .breadcrumb-sep { opacity: .4; }
+    .hero-eyebrow { font-size: 14px; font-weight: 500; color: var(--sky); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .hero-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--sky); display: block; opacity: .6; }
+    .page-hero h1 { font-size: clamp(30px, 3.5vw, 48px); font-weight: 700; color: var(--white); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+    .page-hero-sub { font-size: 15px; color: rgba(255,255,255,.68); line-height: 1.8; max-width: 520px; }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+    .hero-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.85); }
+    .hero-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); flex-shrink: 0; }
+
+    /* ── Why Combo ── */
+    .why-combo { padding: 80px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 14px; font-weight: 700; letter-spacing: .1em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+    .section-heading { font-size: clamp(22px, 2.4vw, 32px); font-weight: 700; color: var(--ink); letter-spacing: -.025em; line-height: 1.2; margin-bottom: 0; }
+    .why-header { text-align: center; margin-bottom: 60px; }
+    .why-row { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .why-item {
+      padding: 8px 48px 20px 0; position: relative; overflow: hidden;
+    }
+    .why-item + .why-item { padding-left: 48px; padding-right: 0; border-left: 1px solid var(--border); }
+    .why-item + .why-item:not(:last-child) { padding-right: 48px; }
+    /* Large faded background number — top-right corner */
+    .why-item::before {
+      content: attr(data-num);
+      position: absolute; top: -10px; right: -2px;
+      font-size: 100px; font-weight: 700; line-height: 1;
+      color: rgba(30,58,95,.055); pointer-events: none; user-select: none;
+      letter-spacing: -0.04em;
+    }
+    .why-metric {
+      font-size: 28px; font-weight: 700;
+      color: var(--navy); letter-spacing: -.04em; line-height: 1;
+      margin-bottom: 16px; position: relative;
+    }
+    .why-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 10px; position: relative; }
+    .why-desc { font-size: 14px; color: var(--t2); line-height: 1.8; position: relative; }
+
+    /* ── Combo Grid Section ── */
+    .combo-section { padding: 60px 0 60px; }
+    .combo-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .result-count { font-size: 14px; color: var(--t2); }
+    .result-count strong { color: var(--ink); }
+    .sort-select {
+      font-family: 'Noto Sans TC', sans-serif; font-size: 14px; color: var(--ink);
+      padding: 8px 32px 8px 12px; border-radius: 7px;
+      border: 1.5px solid var(--border); background: var(--white);
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+    }
+
+    /* ── Combo Cards ── */
+    .combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 36px; }
+    .combo-card {
+      border-radius: 16px; overflow: hidden;
+      border: 1.5px solid var(--border); background: var(--white);
+      transition: box-shadow .25s, transform .25s; position: relative;
+    }
+    .combo-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.10); transform: translateY(-4px); }
+
+    /* Split thumbnail */
+    .combo-thumb {
+      display: grid; grid-template-columns: 1fr 1fr;
+      height: 200px; position: relative;
+    }
+    .combo-thumb-half {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .combo-thumb-half:first-child { border-right: 2px solid rgba(255,255,255,.3); }
+    .combo-thumb-label {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      color: rgba(255,255,255,.85); background: rgba(0,0,0,.32);
+      padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+    }
+    .combo-thumb-icon { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+    .combo-thumb-icon-box {
+      width: 44px; height: 44px; border-radius: 9px;
+      background: rgba(255,255,255,.13);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Overlay on hover */
+    .combo-overlay {
+      position: absolute; inset: 0;
+      background: rgba(15,23,42,.5);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .25s;
+    }
+    .combo-card:hover .combo-overlay { opacity: 1; }
+    .btn-combo-cart {
+      padding: 11px 28px; border-radius: 8px;
+      background: var(--white); color: var(--navy);
+      font-size: 13px; font-weight: 700; border: none;
+      transform: translateY(8px); transition: transform .25s, background .2s;
+    }
+    .combo-card:hover .btn-combo-cart { transform: translateY(0); }
+    .btn-combo-cart:hover { background: var(--sky-lt); }
+
+    /* Combo card skins — muted palette */
+    .skin-a { background: linear-gradient(135deg, #1e3a5f 0%, #2a5a8a 100%); }
+    .skin-b { background: linear-gradient(135deg, #2a4a6e 0%, #1a5a6a 100%); }
+    .skin-c { background: linear-gradient(135deg, #1a2a3a 0%, #2a3a4e 100%); }
+    .skin-d { background: linear-gradient(135deg, #3a3262 0%, #524a82 100%); }
+    .skin-e { background: linear-gradient(135deg, #b8cfe0 0%, #8aaecc 100%); }
+    .skin-f { background: linear-gradient(135deg, #1a3a5a 0%, #2a5a7a 100%); }
+
+    /* Save badge */
+    .combo-save-badge {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      background: var(--accent); color: var(--white);
+    }
+
+    .combo-body { padding: 20px 22px 22px; }
+    .combo-cat { font-size: 14px; font-weight: 600; color: var(--t2); letter-spacing: .03em; margin-bottom: 5px; }
+    .combo-name { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 10px; }
+    .combo-includes {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .combo-tag {
+      font-size: 12px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+      background: var(--sky-lt); color: var(--navy);
+    }
+    .combo-divider { height: 1px; background: var(--border); margin-bottom: 14px; }
+    .combo-pricing { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+    .combo-orig { font-size: 14px; color: var(--t2); text-decoration: line-through; }
+    .combo-price { font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.03em; }
+    .combo-unit { font-size: 14px; color: var(--t2); }
+    .btn-add-cart-full {
+      display: block; width: 100%; padding: 11px;
+      background: var(--navy); color: var(--white);
+      border-radius: 7px; font-size: 14px; font-weight: 700;
+      border: none; text-align: center;
+      transition: background .2s;
+    }
+    .btn-add-cart-full:hover { background: var(--navy-dk); }
+
+    /* ── Process Block ── */
+    .proc-block {
+      background: var(--sky-lt);
+      border: 1.5px solid var(--sky);
+      border-radius: 16px; padding: 48px 52px; margin-bottom: 40px;
+    }
+    .proc-label { font-size: 14px; font-weight: 700; letter-spacing: .06em; color: var(--navy); margin-bottom: 10px; }
+    .proc-title { font-size: clamp(19px, 2vw, 25px); font-weight: 700; color: var(--ink); letter-spacing: -.02em; margin-bottom: 6px; }
+    .proc-sub { font-size: 14px; color: var(--t2); margin-bottom: 36px; }
+    .proc-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+    .proc-steps::before {
+      content: ''; position: absolute;
+      top: 22px; left: 10%; right: 10%;
+      height: 1px; background: var(--sky);
+    }
+    .proc-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 8px; }
+    .proc-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--white); border: 1.5px solid var(--sky);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: var(--navy);
+      margin-bottom: 16px; position: relative; z-index: 1;
+    }
+    .proc-name { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .proc-desc { font-size: 14px; color: var(--t2); line-height: 1.65; }
+
+    /* ── Pagination ── */
+    .pagination-wrap { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 0; }
+    .page-btn {
+      width: 36px; height: 36px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--border); background: var(--white);
+      color: var(--ink2); transition: all .15s;
+    }
+    .page-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .page-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .page-btn.ellipsis { cursor: default; border-color: transparent; color: var(--t2); }
+    .page-btn.wide { width: auto; padding: 0 14px; }
+
+    /* ── CTA Band ── */
+    .cta-band { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%); padding: 80px 0; text-align: center; }
+    .cta-band-inner { max-width: 560px; margin: 0 auto; }
+    .cta-title { font-size: clamp(24px,3vw,32px); font-weight: 700; color: var(--white); letter-spacing: -.025em; line-height: 1.25; margin-bottom: 14px; }
+    .cta-desc { font-size: 16px; color: rgba(255,255,255,.62); line-height: 1.75; margin-bottom: 32px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-accent { display: inline-flex; align-items: center; gap: 7px; padding: 13px 28px; background: var(--accent); color: var(--white); border-radius: 7px; font-size: 14px; font-weight: 700; transition: filter .2s; }
+    .btn-cta-accent:hover { filter: brightness(1.08); }
+    .btn-cta-ghost { display: inline-flex; align-items: center; gap: 7px; padding: 13px 28px; background: rgba(255,255,255,.1); color: var(--white); border: 1.5px solid rgba(255,255,255,.2); border-radius: 7px; font-size: 14px; font-weight: 600; transition: background .2s; }
+    .btn-cta-ghost:hover { background: rgba(255,255,255,.18); }
+
+    /* ── Footer ── */
+    .footer { background: var(--navy-dk); padding: 60px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo { font-size: 18px; font-weight: 700; color: var(--white); letter-spacing: -.02em; }
+    .footer-logo span { color: var(--sky); }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,.48); line-height: 1.75; max-width: 280px; margin-top: 12px; }
+    .footer-heading { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: rgba(255,255,255,.35); text-transform: uppercase; margin-bottom: 14px; }
+    .footer-links { display: flex; flex-direction: column; gap: 9px; }
+    .footer-link { font-size: 14px; color: rgba(255,255,255,.58); transition: color .18s; }
+    .footer-link:hover { color: var(--white); }
+    .footer-contact { font-size: 14px; color: rgba(255,255,255,.52); margin-bottom: 9px; display: flex; gap: 8px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.28); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1000px) {
+      .combo-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .proc-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .proc-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .combo-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .proc-block { padding: 32px 24px; }
+      .proc-steps { grid-template-columns: 1fr; gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><img src="icon.webp" alt="ViewEC" style="height:32px;width:auto;"></a>
+    <nav class="nav-links">
+      <div class="nav-item">
+        <span class="nav-dropdown-btn">圖片模板 ▾</span>
+        <div class="nav-dropdown-menu">
+          <a href="listing-layout.html">刊登圖</a>
+          <a href="description-layout.html">說明圖</a>
+          <a href="combo.html" class="active">組合優惠</a>
+        </div>
+      </div>
+      <a href="#" class="nav-link">客服外包</a>
+      <a href="process.html" class="nav-link">服務流程</a>
+      <a href="https://viewec.com/" class="nav-link" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;">關於視宇<svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-left:3px;opacity:.6" aria-hidden="true"><path d="M3.5 1.5H2a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V6"/><path d="M6 1.5h3m0 0v3m0-3L4.5 6"/></svg></a>
+    </nav>
+    <a href="#" class="nav-cta">免費諮詢</a>
+  </div>
+</header>
+
+<!-- ── Page Hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-eyebrow">打造具備品牌連貫性的視覺系統</div>
+    <h1>組合優惠</h1>
+    <p class="page-hero-sub">精選同系列模板，確保視覺風格統一</p>
+  </div>
+</section>
+
+<!-- ── Why Combo ── -->
+<section class="why-combo">
+  <div class="container">
+    <div class="why-header">
+      <div class="section-label">組合優勢</div>
+      <h2 class="section-heading">為什麼選擇組合購買？</h2>
+    </div>
+    <div class="why-row">
+
+      <div class="why-item" data-num="01">
+        <div class="why-metric">超值折扣</div>
+        <div class="why-title">一次購買，省下更多</div>
+        <div class="why-desc">組合價比單張購買省 15–20%，預算花在刀口上，讓每一分行銷費用都更有效率。</div>
+      </div>
+
+      <div class="why-item" data-num="02">
+        <div class="why-metric">統一交付</div>
+        <div class="why-title">一次下單，零重工</div>
+        <div class="why-desc">刊登圖與說明圖同步製作，不用來回溝通兩次，上架時程大幅縮短。</div>
+      </div>
+
+      <div class="why-item" data-num="03">
+        <div class="why-metric">全同系列</div>
+        <div class="why-title">風格統一，視覺加乘</div>
+        <div class="why-desc">同系列模板設計語言一致，產品頁整體視覺更專業，有效強化品牌識別與買家信任。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Combo Products ── -->
+<section class="combo-section">
+  <div class="container">
+
+    <div class="combo-toolbar">
+      <p class="result-count">共 <strong>18</strong> 款組合方案</p>
+      <select class="sort-select">
+        <option>排序：推薦</option>
+        <option>價格低到高</option>
+        <option>價格高到低</option>
+        <option>最新上架</option>
+      </select>
+    </div>
+
+    <!-- Combo Grid #1 -->
+    <div class="combo-grid">
+
+      <!-- Card 1 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half skin-a">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="13" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half skin-b">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 20%</span>
+        <div class="combo-body">
+          <div class="combo-cat">電子產品 / 功能亮點型</div>
+          <div class="combo-name">電子產品旗艦完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,608</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half skin-c">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half skin-a" style="background: linear-gradient(135deg,#1e3a5f 0%,#3d5a8e 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 18%</span>
+        <div class="combo-body">
+          <div class="combo-cat">居家用品 / 產品展示型</div>
+          <div class="combo-name">居家生活簡約完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,723</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half skin-d">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#1e3a5f 0%,#2a5a82 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 20%</span>
+        <div class="combo-body">
+          <div class="combo-cat">美妝保健 / 主題風格型</div>
+          <div class="combo-name">美妝保健奢華感完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,608</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#1a2a4a 0%,#2a3a5e 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="rgba(255,255,255,.85)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#0f2a4a 0%,#1a4a6e 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 15%</span>
+        <div class="combo-body">
+          <div class="combo-cat">汽車配件 / 功能亮點型</div>
+          <div class="combo-name">汽車配件科技感完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,896</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half skin-e">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="rgba(30,58,95,.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label" style="color:rgba(30,58,95,.7);background:rgba(30,58,95,.1)">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#a0c0e0 0%,#7a9ec0 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(30,58,95,.5)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(30,58,95,.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label" style="color:rgba(30,58,95,.7);background:rgba(30,58,95,.1)">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 20%</span>
+        <div class="combo-body">
+          <div class="combo-cat">廚房餐飲 / 簡約清爽型</div>
+          <div class="combo-name">廚具清爽白底完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,608</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half skin-f">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#1a4a5a 0%,#2a6a7a 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 18%</span>
+        <div class="combo-body">
+          <div class="combo-cat">母嬰用品 / 產品展示型</div>
+          <div class="combo-name">母嬰溫柔展示完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,723</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+    </div><!-- /combo-grid -->
+
+    <!-- Combo Grid #2 (remaining) -->
+    <div class="combo-grid" style="margin-bottom:36px;">
+
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#2d6a9f 0%,#1a5a8f 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#1e4a7a 0%,#2a6aaa 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 20%</span>
+        <div class="combo-body">
+          <div class="combo-cat">運動戶外 / 對比型</div>
+          <div class="combo-name">運動器材強調對比完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,608</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#0f2a4a 0%,#0a5a7a 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M9 7h6M9 11h6" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#0a1f3a 0%,#0f4a6a 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 15%</span>
+        <div class="combo-body">
+          <div class="combo-cat">電子產品 / 主題風格型</div>
+          <div class="combo-name">智能設備生活情境完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,896</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-thumb">
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a8e 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">刊登圖</span>
+          </div>
+          <div class="combo-thumb-half" style="background:linear-gradient(135deg,#162d4a 0%,#2a4a70 100%)">
+            <div class="combo-thumb-icon">
+              <div class="combo-thumb-icon-box">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="combo-thumb-label">說明圖</span>
+          </div>
+          <div class="combo-overlay">
+            <button class="btn-combo-cart">加入購物車</button>
+          </div>
+        </div>
+        <span class="combo-save-badge">省 18%</span>
+        <div class="combo-body">
+          <div class="combo-cat">寵物用品 / 功能亮點型</div>
+          <div class="combo-name">寵物用品活潑版完整組</div>
+          <div class="combo-includes">
+            <span class="combo-tag">刊登圖 × 7</span>
+            <span class="combo-tag">說明圖 × 5</span>
+          </div>
+          <div class="combo-divider"></div>
+          <div class="combo-pricing">
+            <span class="combo-orig">NT$5,760</span>
+            <span class="combo-price">NT$4,723</span>
+            <span class="combo-unit">/ 組</span>
+          </div>
+          <button class="btn-add-cart-full">加入購物車</button>
+        </div>
+      </div>
+
+    </div><!-- /combo-grid 2 -->
+
+    <!-- Pagination -->
+    <div class="pagination-wrap" style="margin-bottom:48px;">
+      <div class="page-btn wide" style="opacity:.4;pointer-events:none;">‹ 上一頁</div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn wide">下一頁 ›</div>
+    </div>
+
+    <!-- Process Block (after pagination) -->
+    <div class="proc-block">
+      <div class="proc-label">服務流程</div>
+      <div class="proc-title">快速完成專業商品圖設計</div>
+      <div class="proc-sub">由資深設計師全程執行，您提供素材，我們負責剩下的一切</div>
+      <div class="proc-steps">
+        <div class="proc-step">
+          <div class="proc-num">01</div>
+          <div class="proc-name">挑選模板</div>
+          <div class="proc-desc">從多種風格中篩選最符合您產品特性的設計</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">02</div>
+          <div class="proc-name">下單上傳</div>
+          <div class="proc-desc">提供商品照片、核心文案與品牌規範</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">03</div>
+          <div class="proc-name">客製設計</div>
+          <div class="proc-desc">設計師套用模板並依您需求調整細節</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">04</div>
+          <div class="proc-name">確認初稿</div>
+          <div class="proc-desc">一次免費修改，確保成品完全符合預期</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">05</div>
+          <div class="proc-name">交付成品</div>
+          <div class="proc-desc">高解析度成品檔，含完整商業授權</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA Band ── -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-band-inner">
+      <h2 class="cta-title">方案選擇困難？讓我們來幫您</h2>
+      <p class="cta-desc">如果您不確定哪款組合最適合，或有大量訂製需求，請直接聯繫我們。我們的專業團隊將根據您的產品性質，提供最精確的選購建議</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-cta-accent">聯繫我們</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">ViewEC</div>
+        <p>視宇旗下跨境電商視覺與營運服務品牌，Amazon 官方認證 SPN 服務商，協助賣家以專業視覺與高效客服贏得全球市場。</p>
+      </div>
+      <div>
+        <div class="footer-heading">服務項目</div>
+        <div class="footer-links">
+          <a href="listing.html" class="footer-link">刊登圖模板</a>
+          <a href="description.html" class="footer-link">說明圖模板</a>
+          <a href="combo.html" class="footer-link">組合優惠</a>
+          <a href="#" class="footer-link">AI 智慧客服</a>
+          <a href="#" class="footer-link">BPO 外包服務</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">關於我們</div>
+        <div class="footer-links">
+          <a href="process.html" class="footer-link">服務流程</a>
+          <a href="#" class="footer-link">公司介紹</a>
+          <a href="https://viewec.tw" class="footer-link">視宇集團官網</a>
+          <a href="#" class="footer-link">聯繫我們</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">聯繫方式</div>
+        <div class="footer-contact">service@viewec.com</div>
+        <div class="footer-contact">( 02 ) 2545 - 8780</div>
+        <div class="footer-contact">105403 台北市松山區復興北路 191 號 7 樓之 5</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 ViewEC Marketing. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.page-btn:not(.ellipsis):not(.wide)').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.page-btn:not(.ellipsis):not(.wide)').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
