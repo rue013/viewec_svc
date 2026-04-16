@@ -57,7 +57,7 @@
     .nav-dropdown-btn { display: inline-flex; align-items: center; gap: 3px; font-size: 14px; font-weight: 500; color: var(--ink2); padding: 6px 14px; border-radius: 6px; transition: all .18s; cursor: default; user-select: none; }
     .nav-item:hover .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); }
     .nav-item:has(.nav-dropdown-menu a.active) .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); font-weight: 600; }
-    .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; background: var(--white); border: 1px solid var(--border); border-radius: 8px; min-width: 144px; padding: 4px 0; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+    .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: var(--white); border: 1px solid var(--border); border-radius: 8px; min-width: 144px; padding: 8px 0 4px; z-index: 200; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
     .nav-item:hover .nav-dropdown-menu { display: block; }
     .nav-dropdown-menu a { display: block; padding: 9px 16px; font-size: 14px; font-weight: 500; color: var(--ink2); text-decoration: none; transition: background .15s; }
     .nav-dropdown-menu a:hover { background: var(--sky-lt); color: var(--navy); }
@@ -352,13 +352,13 @@
       </div>
 
       <div class="why-item" data-num="02">
-        <div class="why-metric">統一交付</div>
-        <div class="why-title">一次下單，零重工</div>
+        <div class="why-metric">節省時間</div>
+        <div class="why-title">一鍵下單，避免重工</div>
         <div class="why-desc">刊登圖與說明圖同步製作，不用來回溝通兩次，上架時程大幅縮短。</div>
       </div>
 
       <div class="why-item" data-num="03">
-        <div class="why-metric">全同系列</div>
+        <div class="why-metric">視覺連貫</div>
         <div class="why-title">風格統一，視覺加乘</div>
         <div class="why-desc">同系列模板設計語言一致，產品頁整體視覺更專業，有效強化品牌識別與買家信任。</div>
       </div>
@@ -409,8 +409,8 @@
         </div>
         <span class="combo-save-badge">省 20%</span>
         <div class="combo-body">
-          <div class="combo-cat">電子產品 / 功能亮點型</div>
-          <div class="combo-name">電子產品旗艦完整組</div>
+          <div class="combo-cat">電子產品</div>
+          <div class="combo-name">電子產品旗艦組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -450,8 +450,8 @@
         </div>
         <span class="combo-save-badge">省 18%</span>
         <div class="combo-body">
-          <div class="combo-cat">居家用品 / 產品展示型</div>
-          <div class="combo-name">居家生活簡約完整組</div>
+          <div class="combo-cat">居家用品</div>
+          <div class="combo-name">居家生活實景組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -491,8 +491,8 @@
         </div>
         <span class="combo-save-badge">省 20%</span>
         <div class="combo-body">
-          <div class="combo-cat">美妝保健 / 主題風格型</div>
-          <div class="combo-name">美妝保健奢華感完整組</div>
+          <div class="combo-cat">美妝保養</div>
+          <div class="combo-name">美妝保養奢華感組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -532,8 +532,8 @@
         </div>
         <span class="combo-save-badge">省 15%</span>
         <div class="combo-body">
-          <div class="combo-cat">汽車配件 / 功能亮點型</div>
-          <div class="combo-name">汽車配件科技感完整組</div>
+          <div class="combo-cat">汽車配件</div>
+          <div class="combo-name">汽車配件科技組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -573,8 +573,8 @@
         </div>
         <span class="combo-save-badge">省 20%</span>
         <div class="combo-body">
-          <div class="combo-cat">廚房餐飲 / 簡約清爽型</div>
-          <div class="combo-name">廚具清爽白底完整組</div>
+          <div class="combo-cat">廚房餐飲</div>
+          <div class="combo-name">功能性實用廚具組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -614,8 +614,8 @@
         </div>
         <span class="combo-save-badge">省 18%</span>
         <div class="combo-body">
-          <div class="combo-cat">母嬰用品 / 產品展示型</div>
-          <div class="combo-name">母嬰溫柔展示完整組</div>
+          <div class="combo-cat">母嬰用品</div>
+          <div class="combo-name">母嬰溫柔風格組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -659,8 +659,8 @@
         </div>
         <span class="combo-save-badge">省 20%</span>
         <div class="combo-body">
-          <div class="combo-cat">運動戶外 / 對比型</div>
-          <div class="combo-name">運動器材強調對比完整組</div>
+          <div class="combo-cat">運動戶外</div>
+          <div class="combo-name">運動器材對比組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -699,8 +699,8 @@
         </div>
         <span class="combo-save-badge">省 15%</span>
         <div class="combo-body">
-          <div class="combo-cat">電子產品 / 主題風格型</div>
-          <div class="combo-name">智能設備生活情境完整組</div>
+          <div class="combo-cat">電子產品</div>
+          <div class="combo-name">智能設備生活情境組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>
@@ -739,8 +739,8 @@
         </div>
         <span class="combo-save-badge">省 18%</span>
         <div class="combo-body">
-          <div class="combo-cat">寵物用品 / 功能亮點型</div>
-          <div class="combo-name">寵物用品活潑版完整組</div>
+          <div class="combo-cat">寵物用品</div>
+          <div class="combo-name">寵物用品活潑組合</div>
           <div class="combo-includes">
             <span class="combo-tag">刊登圖 × 7</span>
             <span class="combo-tag">說明圖 × 5</span>

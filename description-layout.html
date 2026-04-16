@@ -71,9 +71,9 @@
     .nav-item:hover .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); }
     .nav-item:has(.nav-dropdown-menu a.active) .nav-dropdown-btn { color: var(--navy); background: var(--sky-lt); font-weight: 600; }
     .nav-dropdown-menu {
-      display: none; position: absolute; top: calc(100% + 6px); left: 0;
+      display: none; position: absolute; top: 100%; left: 0;
       background: var(--white); border: 1px solid var(--border); border-radius: 8px;
-      min-width: 144px; padding: 4px 0; z-index: 200;
+      min-width: 144px; padding: 8px 0 4px; z-index: 200;
       box-shadow: 0 6px 20px rgba(0,0,0,.08);
     }
     .nav-item:hover .nav-dropdown-menu { display: block; }
