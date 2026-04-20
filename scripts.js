@@ -106,6 +106,55 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // ========================================
+  // Showcase Carousel
+  // ========================================
+
+  const track     = document.querySelector('.showcase-track');
+  const trackWrap = document.querySelector('.showcase-track-wrap');
+  const prevBtn   = document.querySelector('.sc-prev');
+  const nextBtn   = document.querySelector('.sc-next');
+
+  if (track && prevBtn && nextBtn) {
+    const slides      = track.querySelectorAll('.sc-slide');
+    const totalSlides = slides.length;
+    let currentIdx    = 0;
+
+    function getVisible() {
+      const w = trackWrap.offsetWidth;
+      if (w >= 900) return 3;
+      if (w >= 600) return 2;
+      return 1;
+    }
+
+    function getStep() {
+      if (!slides[0]) return 0;
+      return slides[0].offsetWidth + 24; // 24 = gap
+    }
+
+    function updateCarousel() {
+      const visible   = getVisible();
+      const maxIdx    = Math.max(0, totalSlides - visible);
+      currentIdx      = Math.min(currentIdx, maxIdx);
+      track.style.transform = `translateX(-${currentIdx * getStep()}px)`;
+      prevBtn.disabled = currentIdx === 0;
+      nextBtn.disabled = currentIdx >= maxIdx;
+      prevBtn.style.opacity = currentIdx === 0 ? '0.35' : '1';
+      nextBtn.style.opacity = currentIdx >= maxIdx ? '0.35' : '1';
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIdx > 0) { currentIdx--; updateCarousel(); }
+    });
+    nextBtn.addEventListener('click', () => {
+      const maxIdx = Math.max(0, totalSlides - getVisible());
+      if (currentIdx < maxIdx) { currentIdx++; updateCarousel(); }
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+  }
+
+  // ========================================
   // Stats Counter Animation
   // ========================================
   
